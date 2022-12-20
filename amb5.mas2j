@@ -9,7 +9,11 @@ MAS amb5 {
 		gato1;
 		rato1;
 	    buraco1;
+        buraco2;
+        buraco3;
+        buraco4;
 
 	aslSourcePath:
 		"src/asl";
+
 }

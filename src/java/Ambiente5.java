@@ -13,11 +13,52 @@ import java.awt.Graphics;
 
 import java.util.Random;
 
+// TODO Validar se existe algum elemento antes de posicionar o buraco
+
 class Env {
+
+	public static int IdDonaDeCasa()
+	{
+		return 0;
+	}
+
+	public static int IdGatoUm()
+	{
+		return 1;
+	}
+
+	public static int IdRatoUm()
+	{
+		return 2;
+	}
+
+	public static int IdBuracoUm()
+	{
+		return 3;
+	}
+
+
+	public static int IdBuracoDois()
+	{
+		return 4;
+	}
+
+
+	public static int IdBuracoTres()
+	{
+		return 5;
+	}
+
+
+	public static int IdBuracoQuatro()
+	{
+		return 6;
+	}
+
 
 	public static int TotalAgentes()
 	{
-		return 4;
+		return 7;
 	}
 }
 
@@ -26,7 +67,7 @@ public class Ambiente5 extends Environment {   // Classe de ambiente
 	public static final Term    pc = Literal.parseLiteral("proximaCasa");
 	public static final Term	pcg = Literal.parseLiteral("proximaCasaGato");
 	
-    private Location donaCasaLoc, gatoLoc, ratoLoc, buracoUmLoc;
+    private Location donaCasaLoc, gatoLoc, ratoLoc, buracoUmLoc, buracoDoisLoc, buracoTresLoc, buracoQuatroLoc;
 
 
 	private ModeloAmbiente modelo;				// vari�vel de modelo
@@ -37,17 +78,23 @@ public class Ambiente5 extends Environment {   // Classe de ambiente
        public ModeloAmbiente (int arg0, int arg1, int arg2) {	// Recebe a coluna, linha e agente
 	           super(arg0, arg1, arg2);
 	            try {
-		            setAgPos(0, 0, 0);								// Posiciona o primeiro agente na posi��o 0,0
-		            setAgPos(1, 9, 9);
-		            setAgPos(2, 7, 1);
+		            setAgPos(Env.IdDonaDeCasa(), 0, 0);								// Posiciona o primeiro agente na posi��o 0,0
+		            setAgPos(Env.IdGatoUm(), 9, 9);
+		            setAgPos(Env.IdRatoUm(), 7, 1);
 
 					Random gerador = new Random();
-					setAgPos(3, gerador.nextInt(10), gerador.nextInt(10));
+					setAgPos(Env.IdBuracoUm(), gerador.nextInt(10), gerador.nextInt(10));
+					setAgPos(Env.IdBuracoDois(), gerador.nextInt(10), gerador.nextInt(10));
+					setAgPos(Env.IdBuracoTres(), gerador.nextInt(10), gerador.nextInt(10));
+					setAgPos(Env.IdBuracoQuatro(), gerador.nextInt(10), gerador.nextInt(10));
 
-		        	donaCasaLoc = getAgPos(0);
-		        	gatoLoc = getAgPos(1);
-		        	ratoLoc = getAgPos(2);
-					buracoUmLoc = getAgPos(3);
+		        	donaCasaLoc = getAgPos(Env.IdDonaDeCasa());
+		        	gatoLoc = getAgPos(Env.IdGatoUm());
+		        	ratoLoc = getAgPos(Env.IdRatoUm());
+					buracoUmLoc = getAgPos(Env.IdBuracoUm());
+					buracoDoisLoc = getAgPos(Env.IdBuracoDois());
+					buracoTresLoc = getAgPos(Env.IdBuracoTres());
+					buracoQuatroLoc = getAgPos(Env.IdBuracoQuatro());
 
                	    } catch (Exception e) {
                            e.printStackTrace();
@@ -161,7 +208,7 @@ class VisaoAmbiente extends GridWorldView {
 				rotulo = new String ("Rato");
 				break;
 			}
-			case 3: {
+			case 3, 4, 5, 6: {
 				c = Color.black;
 				break;
 			}
