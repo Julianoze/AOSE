@@ -13,12 +13,20 @@ import java.awt.Graphics;
 
 import java.util.Random;
 
+class Env {
+
+	public static int TotalAgentes()
+	{
+		return 4;
+	}
+}
+
 public class Ambiente5 extends Environment {   // Classe de ambiente
 
 	public static final Term    pc = Literal.parseLiteral("proximaCasa");
 	public static final Term	pcg = Literal.parseLiteral("proximaCasaGato");
 	
-    private Location donaCasaLoc, gatoLoc, ratoLoc;
+    private Location donaCasaLoc, gatoLoc, ratoLoc, buracoUmLoc;
 
 
 	private ModeloAmbiente modelo;				// vari�vel de modelo
@@ -33,9 +41,13 @@ public class Ambiente5 extends Environment {   // Classe de ambiente
 		            setAgPos(1, 9, 9);
 		            setAgPos(2, 7, 1);
 
+					Random gerador = new Random();
+					setAgPos(3, gerador.nextInt(10), gerador.nextInt(10));
+
 		        	donaCasaLoc = getAgPos(0);
 		        	gatoLoc = getAgPos(1);
 		        	ratoLoc = getAgPos(2);
+					buracoUmLoc = getAgPos(3);
 
                	    } catch (Exception e) {
                            e.printStackTrace();
@@ -134,24 +146,28 @@ class VisaoAmbiente extends GridWorldView {
 		String rotulo = "";
 
 		switch (id) {
-		case 0: {
-			c = Color.green;
-			rotulo = new String ("DonaCasa");
-			break;
-		}
-		case 1: {
-			c = Color.yellow;
-			rotulo = new String ("Gato");
-			break;
-		}
-		case 2: {
-			c = Color.gray;
-			rotulo = new String ("Rato");
-			break;
-		}
+			case 0: {
+				c = Color.green;
+				rotulo = new String ("DonaCasa");
+				break;
+			}
+			case 1: {
+				c = Color.yellow;
+				rotulo = new String ("Gato");
+				break;
+			}
+			case 2: {
+				c = Color.gray;
+				rotulo = new String ("Rato");
+				break;
+			}
+			case 3: {
+				c = Color.black;
+				break;
+			}
 		}
 		
-		if (id >= 0 && id < 3) {
+		if (id >= 0 && id < Env.TotalAgentes()) {
 			super.drawAgent(g, x, y, c, -1);
 
 			g.setColor(Color.black);
@@ -171,7 +187,7 @@ class VisaoAmbiente extends GridWorldView {
     public void init(String[] args) {
         super.init(args);
         
-        modelo = new ModeloAmbiente(10,10,3);
+        modelo = new ModeloAmbiente(10,10,Env.TotalAgentes());
         
         visao  = new VisaoAmbiente(modelo);
                
