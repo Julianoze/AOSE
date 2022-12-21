@@ -1,5 +1,6 @@
 !start.
 
-+!start : true <- for ( .range(I, 0, 4) ) { .create_agent(buraco, "buraco.asl"); };
-				.kill_agent(buraco).
-
++!start : true <- for ( .range(I, 1, 4) ) { 
+					.concat("buraco_",I, X);
+					.create_agent(X, "buraco.asl"); 
+				}.

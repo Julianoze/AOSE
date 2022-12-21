@@ -1,4 +1,6 @@
 !start.
 
-+!start : true <- for ( .range(I, 0, 12) ) { .create_agent(queijo, "gato.asl"); };
-				.kill_agent(queijo).
++!start : true <- for ( .range(I, 1, 12) ) { 
+					.concat("queijo_", I, X);
+					.create_agent(X, "gato.asl"); 
+				}.
