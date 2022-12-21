@@ -6,6 +6,9 @@ MAS amb5 {
 	
 	agents:
 		donaCasa;
+		entregador;
+		cao;
+		porta;
         geradorDeGato;
 		geradorDeQueijo;
 		geradorDeBuraco;
