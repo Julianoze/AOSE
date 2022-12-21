@@ -6,9 +6,10 @@ MAS amb5 {
 	
 	agents:
 		donaCasa;
-		gato1;
-		rato1;
-	
+        geradorDeGato;
+		geradorDeQueijo;
+		geradorDeBuraco;
+		geradorDeRato;
 	aslSourcePath:
 		"src/asl";
 }

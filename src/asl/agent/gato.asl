@@ -9,11 +9,11 @@
 								
 +!pegaRato [source (donaCasa)] : true
 				<- .wait(100);
-				   .print ("Caçando o rato");
+				   .print ("Caï¿½ando o rato");
 				    proximaCasaGato.
 				
 +!pegaRato [source (self)] : true
 				<- .wait(100);
-				   .print ("Caçando o rato");
+				   .print ("Caï¿½ando o rato");
 				    proximaCasaGato.
 				
