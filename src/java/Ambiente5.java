@@ -13,260 +13,43 @@ import java.awt.Graphics;
 
 import java.util.Random;
 
-// TODO Validar se existe algum elemento antes de posicionar o buraco
+public class Ambiente5 extends Environment {
 
-class Env {
+	public static final Term pc = Literal.parseLiteral("proximaCasa");
+	public static final Term pcg = Literal.parseLiteral("proximaCasaGato");
 
-	public static int IdDonaDeCasa()
-	{
-		return 0;
-	}
+	private ModeloAmbiente modelo;
+    private VisaoAmbiente  visao;
 
-	public static int IdGatoUm()
-	{
-		return 1;
-	}
-
-	public static int IdRatoUm()
-	{
-		return 2;
-	}
-
-	public static int IdBuracoUm()
-	{
-		return 3;
-	}
-
-
-	public static int IdBuracoDois()
-	{
-		return 4;
-	}
-
-
-	public static int IdBuracoTres()
-	{
-		return 5;
-	}
-
-
-	public static int IdBuracoQuatro()
-	{
-		return 6;
-	}
-
-
-	public static int TotalAgentes()
-	{
-		return 7;
-	}
-}
-
-public class Ambiente5 extends Environment {   // Classe de ambiente
-
-	public static final Term    pc = Literal.parseLiteral("proximaCasa");
-	public static final Term	pcg = Literal.parseLiteral("proximaCasaGato");
-	
-    private Location donaCasaLoc, gatoLoc, ratoLoc, buracoUmLoc, buracoDoisLoc, buracoTresLoc, buracoQuatroLoc;
-
-
-	private ModeloAmbiente modelo;				// vari�vel de modelo
-    private VisaoAmbiente  visao;				// vari�vel de vis�o
-
-    class ModeloAmbiente extends GridWorldModel {		// Classe de modelo
-
-       public ModeloAmbiente (int arg0, int arg1, int arg2) {	// Recebe a coluna, linha e agente
-	           super(arg0, arg1, arg2);
-	            try {
-		            setAgPos(Env.IdDonaDeCasa(), 0, 0);								// Posiciona o primeiro agente na posi��o 0,0
-		            setAgPos(Env.IdGatoUm(), 9, 9);
-		            setAgPos(Env.IdRatoUm(), 7, 1);
-
-					Random gerador = new Random();
-					setAgPos(Env.IdBuracoUm(), gerador.nextInt(10), gerador.nextInt(10));
-					setAgPos(Env.IdBuracoDois(), gerador.nextInt(10), gerador.nextInt(10));
-					setAgPos(Env.IdBuracoTres(), gerador.nextInt(10), gerador.nextInt(10));
-					setAgPos(Env.IdBuracoQuatro(), gerador.nextInt(10), gerador.nextInt(10));
-
-		        	donaCasaLoc = getAgPos(Env.IdDonaDeCasa());
-		        	gatoLoc = getAgPos(Env.IdGatoUm());
-		        	ratoLoc = getAgPos(Env.IdRatoUm());
-					buracoUmLoc = getAgPos(Env.IdBuracoUm());
-					buracoDoisLoc = getAgPos(Env.IdBuracoDois());
-					buracoTresLoc = getAgPos(Env.IdBuracoTres());
-					buracoQuatroLoc = getAgPos(Env.IdBuracoQuatro());
-
-               	    } catch (Exception e) {
-                           e.printStackTrace();
-                    }
-        	}
-       
-       void proximaCasa() {
-
-       	Location donaCasaLoc = getAgPos(0);
-       	            
-      	int colunaDona = donaCasaLoc.x;
-      	int ratoAchado = 0;
-       	
-       	for (int coluna = colunaDona; coluna <= (colunaDona + 3); coluna++) {
-        	if ((coluna == ratoLoc.x) && (donaCasaLoc.y == ratoLoc.y)) {
-        		ratoAchado = 1;
-        	    Literal ratoPercebido = Literal.parseLiteral("ratoPercebido(" + ratoLoc.x +"," + ratoLoc.y + ")");
-        	    addPercept(ratoPercebido);
-        	}
-       		
-       	}
-
-       	if (ratoAchado == 0) {
-           	donaCasaLoc.x++;
-            
-           	if (donaCasaLoc.x == getWidth()) {
-           		donaCasaLoc.x = 0;
-           		donaCasaLoc.y++;
-           	    }
-           	            
-           	if (donaCasaLoc.y == getHeight()) {
-           	    return;
-           	    }
-           	      	
-           	setAgPos(0, donaCasaLoc);
-            Literal pos1 = Literal.parseLiteral("pos(donaCasa," + donaCasaLoc.x + "," + donaCasaLoc.y + ")");
-            addPercept(pos1);
-       	}
-       	
-        }
-       
-       void proximaCasaGato() {
-
-          	gatoLoc = getAgPos(1);
-          	ratoLoc = getAgPos(2);
-          	
-           	if ((gatoLoc.x == ratoLoc.x) && (gatoLoc.y == ratoLoc.y)) {
-           	    Literal ratoApanhado = Literal.parseLiteral("ratoApanhado");
-           	    addPercept(ratoApanhado);
-           	}
-           	else {
-           		
-           		if (ratoLoc.x > gatoLoc.x) {
-               		gatoLoc.x++;
-           		}
-               
-           		if (ratoLoc.x < gatoLoc.x) {
-               		gatoLoc.x--;
-           		}
-
-           		if (ratoLoc.x == gatoLoc.x) {
-           		   if (ratoLoc.y > gatoLoc.y) {
-           			   gatoLoc.y++;
-           		   }
-           		   
-           		   if (ratoLoc.y < gatoLoc.y) {
-           			   gatoLoc.y--;
-           		   }
-           		   
-           		}
-
-          	}
-
-               setAgPos(1, gatoLoc);
-               Literal perseguicao = Literal.parseLiteral("aindaNaoPegou (" + gatoLoc.x + ", " + gatoLoc.y + ")");
-       	       addPercept(perseguicao);
-          	
-        }       
-    }
-    
-class VisaoAmbiente extends GridWorldView {
-    
-    public VisaoAmbiente(ModeloAmbiente model) {
-              
-		super(model, "Mundo CasaInfestada", 700);
-             
-    	defaultFont = new Font("Arial", Font.BOLD, 12); // Muda a fonte padr�o
-            
-   		setVisible(true);            
-   		
-		repaint();
-	  }
-    
-    @Override
-    public void drawAgent(Graphics g, int x, int y, Color c, int id) {
-		String rotulo = "";
-
-		switch (id) {
-			case 0: {
-				c = Color.green;
-				rotulo = new String ("DonaCasa");
-				break;
-			}
-			case 1: {
-				c = Color.yellow;
-				rotulo = new String ("Gato");
-				break;
-			}
-			case 2: {
-				c = Color.gray;
-				rotulo = new String ("Rato");
-				break;
-			}
-			case 3, 4, 5, 6: {
-				c = Color.black;
-				break;
-			}
-		}
-		
-		if (id >= 0 && id < Env.TotalAgentes()) {
-			super.drawAgent(g, x, y, c, -1);
-
-			g.setColor(Color.black);
-	            
-			super.drawString(g, x, y, defaultFont, rotulo);
-	     
-			setVisible(true);
-		}
-
-    }
-}
-
-
- /* Chamado antes da execu��o da MAS como os argumentos informados em .mas2j */
-
+	/* Chamado antes da execu��o da MAS como os argumentos informados em .mas2j */
     @Override
     public void init(String[] args) {
         super.init(args);
-        
-        modelo = new ModeloAmbiente(10,10,Env.TotalAgentes());
-        
-        visao  = new VisaoAmbiente(modelo);
-               
-        modelo.setView(visao);
- 
-        clearPercepts();
 
-    	donaCasaLoc = modelo.getAgPos(0);
-        Literal pos1 = Literal.parseLiteral("pos(donaCasa," + donaCasaLoc.x + "," + donaCasaLoc.y + ")");
-        addPercept(pos1);        
-                
+        modelo = new ModeloAmbiente(10, 10 ,Env.TotalAgentes(), this);
+
+        visao  = new VisaoAmbiente(modelo);
+
+        modelo.setView(visao);
+
     }
 
     @Override
     public boolean executeAction(String agName, Structure action) {
-       if (true) { 
-             informAgsEnvironmentChanged();
-        }
-        
+        informAgsEnvironmentChanged();
+
         if (action.equals(pc)) {
+			System.out.println("movimentou");
         	modelo.proximaCasa();
-        } 
-        
+        }
+
         if (action.equals(pcg)) {
         	modelo.proximaCasaGato();
         }
-        return true; 
+        return true;
     }
-    
-    
-    
- /* Chamado antes do fim da execu��o do MAS */ 
+
+ /* Chamado antes do fim da execu��o do MAS */
     @Override
     public void stop() {
         super.stop();
