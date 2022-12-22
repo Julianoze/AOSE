@@ -1,17 +1,5 @@
 import jason.asSyntax.*;
-
 import jason.environment.Environment;
-import jason.environment.grid.GridWorldModel;
-import jason.environment.grid.GridWorldView;
-import jason.environment.grid.Location;
-
-import java.util.logging.*;
-
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
-
-import java.util.Random;
 
 public class Ambiente5 extends Environment {
 
