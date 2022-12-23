@@ -10,8 +10,10 @@ public class HouseWife extends AgentBase {
         super(model);
 
         AgentId = 0;
+        AgentName = "houseWife";
+
         SetInitialAgentPosition(0, 0);
-        AddMovePercept(GetCurrentLocation());
+        AddMovementPerception(GetCurrentLocation());
     }
 
     public void Move() {
@@ -32,7 +34,7 @@ public class HouseWife extends AgentBase {
             return;
         }
         SetAgentPosition(currentLocation);
-        AddMovePercept(currentLocation);
+        AddMovementPerception(currentLocation);
     }
 
     public void SearchMouse(Location currentLocation) {
@@ -44,9 +46,5 @@ public class HouseWife extends AgentBase {
         	//     Environment.addPercept(ratoPercebido);
         	// }
        	}
-    }
-
-    private void AddMovePercept(Location location) {
-        AddPercept(Literal.parseLiteral("position(houseWife," + location.x + "," + location.y + ")"));
     }
 }

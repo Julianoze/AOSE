@@ -6,6 +6,7 @@ public class AgentBase {
     protected EnvironmentModel Model;
 
     protected int AgentId;
+    protected String AgentName;
 
     public AgentBase(EnvironmentModel model) {
         Model = model;
@@ -21,15 +22,19 @@ public class AgentBase {
         }
         while(!Model.isFree(x, y));
 
-        SetInitialAgentPosition(x, y);
+        Model.setAgPos(AgentId, x, y);
     }
 
     protected void SetInitialAgentPosition(int x, int y) {
         Model.setAgPos(AgentId, x, y);
     }
 
-    protected void AddPercept(Literal literal) {
-        Model.Environment.addPercept(literal);
+    protected void AddMovementPerception(Location location) {
+        AddPercept("position("+ AgentName + "," + location.x + "," + location.y + ")");
+    }
+
+    protected void AddAgentPercept(String perception) {
+        Model.Environment.addPercept(AgentName, Literal.parseLiteral(perception));
     }
 
     protected void SetAgentPosition(Location currentLocation) {

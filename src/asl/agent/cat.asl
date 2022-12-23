@@ -1,15 +1,15 @@
-+positionCat(L, X, Y) : true
-	<- 	!mover (X, Y).
++position(L, X, Y) : true
+	<- 	!move (X, Y).
 
-+!mover (X, Y) : X < 9
++!move (X, Y) : X < 9
 	<- 	.wait (300);
 		moveCat.
 
-+!mover (X, Y) : X == 9 & Y < 9
++!move (X, Y) : X == 9 & Y < 9
 	<- 	.wait (300);
 		moveCat.
 
-+!mover (X, Y) : true.
++!move (X, Y) : true.
 
 +aindaNaoPegou (X,Y) : true
 				<- !pegaRato.

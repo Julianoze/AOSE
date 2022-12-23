@@ -8,9 +8,10 @@ public class Cat extends AgentBase {
         super(model);
 
         AgentId = agentId;
+        AgentName = "cat_" + agentId;
 
         SetRandomInitialAgentPosition();
-       	// AddMovePercept(GetCurrentLocation());
+       	AddMovementPerception(GetCurrentLocation());
     }
 
     public void Move() {
@@ -47,23 +48,19 @@ public class Cat extends AgentBase {
         // Literal perseguicao = Literal.parseLiteral("aindaNaoPegou (" + gatoLoc.x + ", " + gatoLoc.y + ")");
        	// Environment.addPercept(perseguicao);
 
-        // Location currentLocation = GetCurrentLocation();
+        Location currentLocation = GetCurrentLocation();
 
-        // currentLocation.x++;
+        currentLocation.x++;
 
-        // if (currentLocation.x == 10) {
-        // 	currentLocation.x = 0;
-        // 	currentLocation.y++;
-        // }
-        // if (currentLocation.y == 10) {
-        //     return;
-        // }
+        if (currentLocation.x == 10) {
+        	currentLocation.x = 0;
+        	currentLocation.y++;
+        }
+        if (currentLocation.y == 10) {
+            return;
+        }
 
-        // SetAgentPosition(currentLocation);
-       	// AddMovePercept(currentLocation);
-    }
-
-    private void AddMovePercept(Location location) {
-        AddPercept(Literal.parseLiteral("positionCat(cat_1," + location.x + "," + location.y + ")"));
+        SetAgentPosition(currentLocation);
+       	AddMovementPerception(currentLocation);
     }
 }
