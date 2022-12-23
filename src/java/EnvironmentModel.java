@@ -7,10 +7,11 @@ import jason.environment.grid.Location;
 import java.util.Random;
 
 public class EnvironmentModel extends GridWorldModel {		// Classe de modelo
-    private Location donaCasaLoc, gatoLoc, ratoLoc, buracoUmLoc, buracoDoisLoc, buracoTresLoc, buracoQuatroLoc;
+    private Location ratoLoc, buracoUmLoc, buracoDoisLoc, buracoTresLoc, buracoQuatroLoc;
     protected Environment Environment;
 
 	private HouseWife _houseWife;
+	private Cat _cat;
 
     public EnvironmentModel (int arg0, int arg1, int arg2, Environment environment) {	// Recebe a coluna, linha e agente
 	    super(arg0, arg1, arg2);
@@ -18,8 +19,8 @@ public class EnvironmentModel extends GridWorldModel {		// Classe de modelo
         Environment = environment;
 	     try {
 			_houseWife = new HouseWife(this);
+			_cat = new Cat(this, 1);
 
-	        setAgPos(Env.IdGatoUm(), 9, 9);
 	        setAgPos(Env.IdRatoUm(), 7, 1);
 
 			Random gerador = new Random();
@@ -28,7 +29,6 @@ public class EnvironmentModel extends GridWorldModel {		// Classe de modelo
 			setAgPos(Env.IdBuracoTres(), gerador.nextInt(10), gerador.nextInt(10));
 			setAgPos(Env.IdBuracoQuatro(), gerador.nextInt(10), gerador.nextInt(10));
 
-	    	gatoLoc = getAgPos(Env.IdGatoUm());
 	    	ratoLoc = getAgPos(Env.IdRatoUm());
 			buracoUmLoc = getAgPos(Env.IdBuracoUm());
 			buracoDoisLoc = getAgPos(Env.IdBuracoDois());
@@ -44,39 +44,7 @@ public class EnvironmentModel extends GridWorldModel {		// Classe de modelo
 		_houseWife.Move();
 	}
 
-    public void proximaCasaGato() {
-
-        gatoLoc = getAgPos(1);
-        ratoLoc = getAgPos(2);
-
-        if ((gatoLoc.x == ratoLoc.x) && (gatoLoc.y == ratoLoc.y)) {
-            Literal ratoApanhado = Literal.parseLiteral("ratoApanhado");
-            Environment.addPercept(ratoApanhado);
-        }
-        else {
-
-        	if (ratoLoc.x > gatoLoc.x) {
-           		gatoLoc.x++;
-        	}
-
-        	if (ratoLoc.x < gatoLoc.x) {
-           		gatoLoc.x--;
-        	}
-
-        	if (ratoLoc.x == gatoLoc.x) {
-        	   if (ratoLoc.y > gatoLoc.y) {
-        		   gatoLoc.y++;
-        	   }
-
-        	   if (ratoLoc.y < gatoLoc.y) {
-        		   gatoLoc.y--;
-        	   }
-
-        	}
-        }
-
-        setAgPos(1, gatoLoc);
-        Literal perseguicao = Literal.parseLiteral("aindaNaoPegou (" + gatoLoc.x + ", " + gatoLoc.y + ")");
-       	Environment.addPercept(perseguicao);
-    }
+	public void proximaCasaGato() {
+		_cat.Move();
+	}
 }
