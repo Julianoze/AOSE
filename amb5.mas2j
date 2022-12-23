@@ -9,7 +9,7 @@ MAS amb5 {
 		entregador;
 		cao;
 		porta;
-        geradorDeGato;
+        catGenerator;
 		geradorDeQueijo;
 		geradorDeBuraco;
 		geradorDeRato;
