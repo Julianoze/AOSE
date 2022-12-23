@@ -17,7 +17,7 @@ public class HouseWife extends AgentBase {
         AddMovePercept(GetCurrentLocation());
     }
 
-    public void proximaCasa() {
+    public void Move() {
         Location currentLocation = GetCurrentLocation();
 
         SearchMouse(currentLocation);
