@@ -1,5 +1,6 @@
 import jason.asSyntax.*;
 import jason.environment.grid.Location;
+import java.util.Random;
 
 public class AgentBase {
     protected EnvironmentModel Model;
@@ -8,6 +9,19 @@ public class AgentBase {
 
     public AgentBase(EnvironmentModel model) {
         Model = model;
+    }
+
+    protected void SetRandomInitialAgentPosition() {
+		Random random = new Random();
+        int x, y;
+
+        do {
+            x = random.nextInt(10);
+            y = random.nextInt(10);
+        }
+        while(!Model.isFree(x, y));
+
+        SetInitialAgentPosition(x, y);
     }
 
     protected void SetInitialAgentPosition(int x, int y) {
