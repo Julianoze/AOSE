@@ -6,8 +6,8 @@ import jason.environment.grid.Location;
 public class HouseWife extends AgentBase {
     private boolean foundMouse;
 
-    public HouseWife(ModeloAmbiente modelo) {
-        super(modelo);
+    public HouseWife(EnvironmentModel model) {
+        super(model);
 
         AgentId = 0;
         SetInitialAgentPosition(0, 0);

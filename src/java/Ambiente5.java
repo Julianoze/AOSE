@@ -6,7 +6,7 @@ public class Ambiente5 extends Environment {
 	public static final Term pc = Literal.parseLiteral("proximaCasa");
 	public static final Term pcg = Literal.parseLiteral("proximaCasaGato");
 
-	private ModeloAmbiente modelo;
+	private EnvironmentModel model;
     private VisaoAmbiente  visao;
 
 	/* Chamado antes da execu��o da MAS como os argumentos informados em .mas2j */
@@ -14,11 +14,11 @@ public class Ambiente5 extends Environment {
     public void init(String[] args) {
         super.init(args);
 
-        modelo = new ModeloAmbiente(10, 10 ,Env.TotalAgentes(), this);
+        model = new EnvironmentModel(10, 10, Env.TotalAgentes(), this);
 
-        visao  = new VisaoAmbiente(modelo);
+        visao  = new VisaoAmbiente(model);
 
-        modelo.setView(visao);
+        model.setView(visao);
 
     }
 
@@ -27,12 +27,11 @@ public class Ambiente5 extends Environment {
         informAgsEnvironmentChanged();
 
         if (action.equals(pc)) {
-			System.out.println("movimentou");
-        	modelo.proximaCasa();
+        	model.proximaCasa();
         }
 
         if (action.equals(pcg)) {
-        	modelo.proximaCasaGato();
+        	model.proximaCasaGato();
         }
         return true;
     }
@@ -42,6 +41,4 @@ public class Ambiente5 extends Environment {
     public void stop() {
         super.stop();
     }
-
-
 }

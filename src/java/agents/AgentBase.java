@@ -2,27 +2,27 @@ import jason.asSyntax.*;
 import jason.environment.grid.Location;
 
 public class AgentBase {
-    protected ModeloAmbiente Modelo;
+    protected EnvironmentModel Model;
 
     protected int AgentId;
 
-    public AgentBase(ModeloAmbiente modelo) {
-        Modelo = modelo;
+    public AgentBase(EnvironmentModel model) {
+        Model = model;
     }
 
     protected void SetInitialAgentPosition(int x, int y) {
-        Modelo.setAgPos(AgentId, x, y);
+        Model.setAgPos(AgentId, x, y);
     }
 
     protected void AddPercept(Literal literal) {
-        Modelo.Environment.addPercept(literal);
+        Model.Environment.addPercept(literal);
     }
 
     protected void SetAgentPosition(Location currentLocation) {
-        Modelo.setAgPos(AgentId, currentLocation);
+        Model.setAgPos(AgentId, currentLocation);
     }
 
     protected Location GetCurrentLocation() {
-       	return Modelo.getAgPos(AgentId);
+       	return Model.getAgPos(AgentId);
     }
 }

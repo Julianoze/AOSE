@@ -6,13 +6,13 @@ import jason.environment.grid.Location;
 
 import java.util.Random;
 
-public class ModeloAmbiente extends GridWorldModel {		// Classe de modelo
+public class EnvironmentModel extends GridWorldModel {		// Classe de modelo
     private Location donaCasaLoc, gatoLoc, ratoLoc, buracoUmLoc, buracoDoisLoc, buracoTresLoc, buracoQuatroLoc;
     protected Environment Environment;
 
 	private HouseWife _houseWife;
 
-    public ModeloAmbiente (int arg0, int arg1, int arg2, Environment environment) {	// Recebe a coluna, linha e agente
+    public EnvironmentModel (int arg0, int arg1, int arg2, Environment environment) {	// Recebe a coluna, linha e agente
 	    super(arg0, arg1, arg2);
 
         Environment = environment;

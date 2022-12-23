@@ -5,7 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 
 public class VisaoAmbiente extends GridWorldView {
-    public VisaoAmbiente(ModeloAmbiente model) {
+    public VisaoAmbiente(EnvironmentModel model) {
 
 		super(model, "Mundo CasaInfestada", 700);
 
