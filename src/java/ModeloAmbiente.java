@@ -41,7 +41,7 @@ public class ModeloAmbiente extends GridWorldModel {		// Classe de modelo
     }
 
 	public void proximaCasa() {
-		_houseWife.proximaCasa();
+		_houseWife.Move();
 	}
 
     public void proximaCasaGato() {

@@ -1,10 +1,7 @@
 import jason.asSyntax.*;
 
 import jason.environment.Environment;
-import jason.environment.grid.GridWorldModel;
 import jason.environment.grid.Location;
-
-import java.util.Random;
 
 public class HouseWife extends AgentBase {
     private boolean foundMouse;
