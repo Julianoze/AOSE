@@ -3,8 +3,8 @@ import jason.environment.Environment;
 
 public class Ambiente5 extends Environment {
 
-	public static final Term pc = Literal.parseLiteral("proximaCasa");
-	public static final Term pcg = Literal.parseLiteral("proximaCasaGato");
+	public static final Term pc = Literal.parseLiteral("moveHouseWife");
+	public static final Term pcg = Literal.parseLiteral("moveCat");
 
 	private EnvironmentModel model;
     private VisaoAmbiente  visao;

@@ -47,6 +47,6 @@ public class HouseWife extends AgentBase {
     }
 
     private void AddMovePercept(Location location) {
-        AddPercept(Literal.parseLiteral("pos(donaCasa," + location.x + "," + location.y + ")"));
+        AddPercept(Literal.parseLiteral("position(houseWife," + location.x + "," + location.y + ")"));
     }
 }
