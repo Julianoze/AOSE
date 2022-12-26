@@ -24,17 +24,7 @@ public class HouseWife extends AgentBase {
         if(foundMouse)
             return;
 
-        currentLocation.x++;
-
-        if (currentLocation.x == 10) {
-        	currentLocation.x = 0;
-        	currentLocation.y++;
-        }
-        if (currentLocation.y == 10) {
-            return;
-        }
-        SetAgentPosition(currentLocation);
-        AddMovementPerception(currentLocation);
+        MoveLinear();
     }
 
     public void SearchMouse(Location currentLocation) {
