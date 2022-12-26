@@ -47,20 +47,6 @@ public class Cat extends AgentBase {
         // setAgPos(1, gatoLoc);
         // Literal perseguicao = Literal.parseLiteral("aindaNaoPegou (" + gatoLoc.x + ", " + gatoLoc.y + ")");
        	// Environment.addPercept(perseguicao);
-
-        Location currentLocation = GetCurrentLocation();
-
-        currentLocation.x++;
-
-        if (currentLocation.x == 10) {
-        	currentLocation.x = 0;
-        	currentLocation.y++;
-        }
-        if (currentLocation.y == 10) {
-            return;
-        }
-
-        SetAgentPosition(currentLocation);
-       	AddMovementPerception(currentLocation);
+        MoveRandomic();
     }
 }
