@@ -30,11 +30,11 @@ public class AgentBase {
     }
 
     protected void AddMovementPerception(Location location) {
-        AddPercept("position("+ AgentName + "," + location.x + "," + location.y + ")");
+        Model.Environment.addPercept(AgentName, Literal.parseLiteral("position("+ AgentName + "," + location.x + "," + location.y + ")"));
     }
 
-    protected void AddAgentPercept(String perception) {
-        Model.Environment.addPercept(AgentName, Literal.parseLiteral(perception));
+    protected void RemoveMovementPerception(Location location) {
+        Model.Environment.removePercept(AgentName, Literal.parseLiteral("position("+ AgentName + "," + location.x + "," + location.y + ")"));
     }
 
     protected void SetAgentPosition(Location currentLocation) {
@@ -43,5 +43,54 @@ public class AgentBase {
 
     protected Location GetCurrentLocation() {
        	return Model.getAgPos(AgentId);
+    }
+
+    protected void MoveLinear() {
+        // TODO handle obstacle
+        Location currentLocation = GetCurrentLocation();
+        RemoveMovementPerception(currentLocation);
+
+        currentLocation.x++;
+
+        if (currentLocation.x == Model.getHeight()) {
+        	currentLocation.x = 0;
+        	currentLocation.y++;
+        }
+        if (currentLocation.y == Model.getWidth()) {
+            return;
+        }
+
+        SetAgentPosition(currentLocation);
+       	AddMovementPerception(currentLocation);
+    }
+
+    protected void MoveRandomic() {
+		Random random = new Random();
+        Location currentLocation = GetCurrentLocation();
+        RemoveMovementPerception(currentLocation);
+
+        boolean findPosition = true;
+
+        do {
+            int axiosX = currentLocation.x + (random.nextBoolean() ? 1 : -1);
+            int axiosY = currentLocation.y + (random.nextBoolean() ? 1 : -1);
+
+            if(axiosX == Model.getHeight())
+                axiosX = currentLocation.x;
+
+            if(axiosY == Model.getWidth())
+                axiosY = currentLocation.y;
+
+            if(Model.isFree(axiosX, axiosY))
+            {
+                currentLocation.x = axiosX;
+                currentLocation.y = axiosY;
+                findPosition = false;
+            }
+        }
+        while(findPosition);
+
+        SetAgentPosition(currentLocation);
+       	AddMovementPerception(currentLocation);
     }
 }
