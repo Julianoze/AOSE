@@ -20,7 +20,6 @@ public class HouseWife extends AgentBase {
         if(!agentName.equals(AgentName))
             return;
 
-        System.out.println("movendo");
         Move();
     }
 
