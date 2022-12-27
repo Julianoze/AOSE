@@ -3,13 +3,17 @@ MAS amb5 {
 	infrastructure: Centralised
 
 	environment: Ambiente5
-	
+
 	agents:
-		donaCasa;
-        geradorDeGato;
+		houseWife;
+		entregador;
+		cao;
+		porta;
+        catGenerator;
+		holeGenerator;
 		geradorDeQueijo;
-		geradorDeBuraco;
-		geradorDeRato;
+		mouseGenerator;
 	aslSourcePath:
 		"src/asl";
+		"src/asl/agent";
 }

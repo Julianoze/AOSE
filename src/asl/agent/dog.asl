@@ -3,4 +3,4 @@
 
 +!move (X, Y) : X >= 0 & Y < 10
 	<- 	.wait (300);
-		moveMouse.
+		moveDog.
