@@ -12,7 +12,7 @@ MAS amb5 {
         catGenerator;
 		geradorDeQueijo;
 		geradorDeBuraco;
-		geradorDeRato;
+		mouseGenerator;
 	aslSourcePath:
 		"src/asl";
 		"src/asl/agent";

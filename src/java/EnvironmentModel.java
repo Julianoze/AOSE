@@ -7,11 +7,12 @@ import jason.environment.grid.Location;
 import java.util.Random;
 
 public class EnvironmentModel extends GridWorldModel {		// Classe de modelo
-    private Location ratoLoc, buracoUmLoc, buracoDoisLoc, buracoTresLoc, buracoQuatroLoc;
+    private Location buracoUmLoc, buracoDoisLoc, buracoTresLoc, buracoQuatroLoc;
     protected Environment Environment;
 
 	private HouseWife _houseWife;
 	private Cat _cat;
+	private Mouse _mouse;
 
     public EnvironmentModel (int arg0, int arg1, int arg2, Environment environment) {	// Recebe a coluna, linha e agente
 	    super(arg0, arg1, arg2);
@@ -20,8 +21,8 @@ public class EnvironmentModel extends GridWorldModel {		// Classe de modelo
 	     try {
 			_houseWife = new HouseWife(this);
 			_cat = new Cat(this, 1);
+			_mouse = new Mouse(this, 2);
 
-	        setAgPos(Env.IdRatoUm(), 7, 1);
 
 			Random gerador = new Random();
 			setAgPos(Env.IdBuracoUm(), gerador.nextInt(10), gerador.nextInt(10));
@@ -29,7 +30,6 @@ public class EnvironmentModel extends GridWorldModel {		// Classe de modelo
 			setAgPos(Env.IdBuracoTres(), gerador.nextInt(10), gerador.nextInt(10));
 			setAgPos(Env.IdBuracoQuatro(), gerador.nextInt(10), gerador.nextInt(10));
 
-	    	ratoLoc = getAgPos(Env.IdRatoUm());
 			buracoUmLoc = getAgPos(Env.IdBuracoUm());
 			buracoDoisLoc = getAgPos(Env.IdBuracoDois());
 			buracoTresLoc = getAgPos(Env.IdBuracoTres());
@@ -40,11 +40,15 @@ public class EnvironmentModel extends GridWorldModel {		// Classe de modelo
         }
     }
 
-	public void proximaCasa() {
+	public void MoveHouseWife() {
 		_houseWife.Move();
 	}
 
-	public void proximaCasaGato() {
+	public void MoveCat() {
 		_cat.Move();
+	}
+
+	public void MoveMouse() {
+		_mouse.Move();
 	}
 }

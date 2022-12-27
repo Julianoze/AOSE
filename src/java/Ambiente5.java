@@ -3,8 +3,9 @@ import jason.environment.Environment;
 
 public class Ambiente5 extends Environment {
 
-	public static final Term pc = Literal.parseLiteral("moveHouseWife");
-	public static final Term pcg = Literal.parseLiteral("moveCat");
+	public static final Term moveHouseWife = Literal.parseLiteral("moveHouseWife");
+	public static final Term moveCat = Literal.parseLiteral("moveCat");
+	public static final Term moveMouse = Literal.parseLiteral("moveMouse");
 
 	private EnvironmentModel model;
     private VisaoAmbiente  visao;
@@ -26,12 +27,16 @@ public class Ambiente5 extends Environment {
     public boolean executeAction(String agName, Structure action) {
         informAgsEnvironmentChanged();
 
-        if (action.equals(pc)) {
-        	model.proximaCasa();
+        if (action.equals(moveHouseWife)) {
+        	model.MoveHouseWife();
         }
 
-        if (action.equals(pcg)) {
-        	model.proximaCasaGato();
+        if (action.equals(moveCat)) {
+        	model.MoveCat();
+        }
+
+        if (action.equals(moveMouse)) {
+            model.MoveMouse();
         }
         return true;
     }
