@@ -6,7 +6,7 @@ MAS amb5 {
 
 	agents:
 		houseWife;
-		entregador;
+		deliveryMan;
 		dog;
 		porta;
         catGenerator;

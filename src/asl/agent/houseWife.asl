@@ -12,11 +12,11 @@
 		.send (gato_1, achieve, pegaRato).
 
 +!move (X, Y) : X < 9
-	<- 	.wait (300);
+	<- 	.wait (500);
 		moveHouseWife.
 
 +!move (X, Y) : X == 9 & Y < 9
-	<- 	.wait (300);
+	<- 	.wait (500);
 		moveHouseWife.
 
 +!move (X, Y) : true.
