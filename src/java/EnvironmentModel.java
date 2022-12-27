@@ -5,6 +5,8 @@ import jason.environment.grid.GridWorldModel;
 import jason.environment.grid.Location;
 
 import java.util.Random;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EnvironmentModel extends GridWorldModel {		// Classe de modelo
     private Location buracoUmLoc, buracoDoisLoc, buracoTresLoc, buracoQuatroLoc;
@@ -21,7 +23,6 @@ public class EnvironmentModel extends GridWorldModel {		// Classe de modelo
 	     try {
 			_houseWife = new HouseWife(this);
 			_cat = new Cat(this, 1);
-			_mouse = new Mouse(this, 2);
 
 
 			Random gerador = new Random();
@@ -34,6 +35,15 @@ public class EnvironmentModel extends GridWorldModel {		// Classe de modelo
 			buracoDoisLoc = getAgPos(Env.IdBuracoDois());
 			buracoTresLoc = getAgPos(Env.IdBuracoTres());
 			buracoQuatroLoc = getAgPos(Env.IdBuracoQuatro());
+
+			List<Location> holesLocation = new ArrayList<Location>();
+			holesLocation.add(buracoUmLoc);
+			holesLocation.add(buracoDoisLoc);
+			holesLocation.add(buracoTresLoc);
+			holesLocation.add(buracoQuatroLoc);
+
+			_mouse = new Mouse(this, 2, holesLocation);
+
 
         } catch (Exception e) {
             e.printStackTrace();

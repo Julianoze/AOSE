@@ -9,17 +9,19 @@ public class AgentBase {
     protected String AgentName;
     protected boolean MoveBack;
 
+    protected Random Random;
+
     public AgentBase(EnvironmentModel model) {
         Model = model;
+        Random = new Random();
     }
 
     protected void SetRandomInitialAgentPosition() {
-		Random random = new Random();
         int x, y;
 
         do {
-            x = random.nextInt(10);
-            y = random.nextInt(10);
+            x = Random.nextInt(10);
+            y = Random.nextInt(10);
         }
         while(!Model.isFree(x, y));
 
@@ -71,15 +73,14 @@ public class AgentBase {
     }
 
     protected void MoveRandomic() {
-		Random random = new Random();
         Location currentLocation = GetCurrentLocation();
         RemoveMovementPerception(currentLocation);
 
         boolean findPosition = true;
 
         do {
-            int axiosX = currentLocation.x + (random.nextBoolean() ? 1 : -1);
-            int axiosY = currentLocation.y + (random.nextBoolean() ? 1 : -1);
+            int axiosX = currentLocation.x + (Random.nextBoolean() ? 1 : -1);
+            int axiosY = currentLocation.y + (Random.nextBoolean() ? 1 : -1);
 
             if(axiosX == Model.getHeight())
                 axiosX = currentLocation.x;
