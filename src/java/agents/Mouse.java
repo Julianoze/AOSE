@@ -17,11 +17,7 @@ public class Mouse extends AgentBase {
         AgentName = "mouse_" + agentId;
 
         HolesLocation = holesLocation;
-
-        int position = Random.nextInt(HolesLocation.size());
-        Location holeLocation = HolesLocation.get(position);
-
-        SetInitialAgentPosition(holeLocation.x, holeLocation.y);
+        RespawnFromHole();
        	AddMovementPerception(GetCurrentLocation());
     }
 
@@ -29,12 +25,29 @@ public class Mouse extends AgentBase {
         if(!agentName.equals(AgentName))
             return;
 
+        if(action.equals(Literal.parseLiteral("respawn")))
+        {
+            RespawnFromHole();
+        }
+
         Move();
     }
 
-
     public void Move() {
+        RemovePerception("hide("+ AgentName+")");
         MoveRandomic();
+
+        Location currentLocation = GetCurrentLocation();
+        if(AllowedPositions(currentLocation.x, currentLocation.y))
+        {
+            int agent = Model.getAgAtPos(currentLocation);
+
+            RemoveMovementPerception(currentLocation);
+            AddAgentPerception("hide("+ AgentName + ")");
+
+            Model.setAgPos(agent, currentLocation);
+            return;
+        }
     }
 
     @Override
@@ -52,5 +65,11 @@ public class Mouse extends AgentBase {
         }
 
         return isAllowedPosition;
+    }
+
+    private void RespawnFromHole() {
+        int position = Random.nextInt(HolesLocation.size());
+        Location holeLocation = HolesLocation.get(position);
+        SetInitialAgentPosition(holeLocation.x, holeLocation.y);
     }
 }

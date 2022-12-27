@@ -36,6 +36,14 @@ public abstract class AgentBase implements AgentInterface {
         Model.Environment.addPercept(AgentName, Literal.parseLiteral("position("+ AgentName + "," + location.x + "," + location.y + ")"));
     }
 
+    protected void AddAgentPerception(String perception) {
+        Model.Environment.addPercept(AgentName, Literal.parseLiteral(perception));
+    }
+
+    protected void RemovePerception(String perception) {
+        Model.Environment.removePercept(AgentName, Literal.parseLiteral(perception));
+    }
+
     protected void RemoveMovementPerception(Location location) {
         Model.Environment.removePercept(AgentName, Literal.parseLiteral("position("+ AgentName + "," + location.x + "," + location.y + ")"));
     }
