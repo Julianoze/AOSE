@@ -2,7 +2,7 @@ import jason.asSyntax.*;
 import jason.environment.grid.Location;
 import java.util.Random;
 
-public class AgentBase {
+public abstract class AgentBase implements AgentInterface {
     protected EnvironmentModel Model;
 
     protected int AgentId;

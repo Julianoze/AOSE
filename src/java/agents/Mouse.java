@@ -21,6 +21,14 @@ public class Mouse extends AgentBase {
        	AddMovementPerception(GetCurrentLocation());
     }
 
+    public void Action(String agentName, Structure action) {
+        if(!agentName.equals(AgentName))
+            return;
+
+        Move();
+    }
+
+
     public void Move() {
         MoveRandomic();
     }

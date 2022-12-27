@@ -16,6 +16,14 @@ public class HouseWife extends AgentBase {
         AddMovementPerception(GetCurrentLocation());
     }
 
+    public void Action(String agentName, Structure action) {
+        if(!agentName.equals(AgentName))
+            return;
+
+        System.out.println("movendo");
+        Move();
+    }
+
     public void Move() {
         Location currentLocation = GetCurrentLocation();
 

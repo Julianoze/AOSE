@@ -27,17 +27,8 @@ public class Ambiente5 extends Environment {
     public boolean executeAction(String agName, Structure action) {
         informAgsEnvironmentChanged();
 
-        if (action.equals(moveHouseWife)) {
-        	model.MoveHouseWife();
-        }
+        model.Action(agName, action);
 
-        if (action.equals(moveCat)) {
-        	model.MoveCat();
-        }
-
-        if (action.equals(moveMouse)) {
-            model.MoveMouse();
-        }
         return true;
     }
 

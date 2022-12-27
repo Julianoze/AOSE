@@ -14,6 +14,13 @@ public class Cat extends AgentBase {
        	AddMovementPerception(GetCurrentLocation());
     }
 
+    public void Action(String agentName, Structure action) {
+        if(!agentName.equals(AgentName))
+            return;
+
+        Move();
+    }
+
     public void Move() {
         // gatoLoc = getAgPos(1);
         // ratoLoc = getAgPos(2);

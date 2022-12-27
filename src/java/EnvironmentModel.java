@@ -12,17 +12,17 @@ public class EnvironmentModel extends GridWorldModel {		// Classe de modelo
     private Location buracoUmLoc, buracoDoisLoc, buracoTresLoc, buracoQuatroLoc;
     protected Environment Environment;
 
-	private HouseWife _houseWife;
-	private Cat _cat;
-	private Mouse _mouse;
+	private ArrayList<AgentInterface> Agents;
 
     public EnvironmentModel (int arg0, int arg1, int arg2, Environment environment) {	// Recebe a coluna, linha e agente
 	    super(arg0, arg1, arg2);
 
         Environment = environment;
 	     try {
-			_houseWife = new HouseWife(this);
-			_cat = new Cat(this, 1);
+			Agents = new ArrayList<AgentInterface>();
+
+			Agents.add(new HouseWife(this));
+			Agents.add(new Cat(this, 1));
 
 
 			Random gerador = new Random();
@@ -42,7 +42,7 @@ public class EnvironmentModel extends GridWorldModel {		// Classe de modelo
 			holesLocation.add(buracoTresLoc);
 			holesLocation.add(buracoQuatroLoc);
 
-			_mouse = new Mouse(this, 2, holesLocation);
+			Agents.add(new Mouse(this, 2, holesLocation));
 
 
         } catch (Exception e) {
@@ -50,15 +50,9 @@ public class EnvironmentModel extends GridWorldModel {		// Classe de modelo
         }
     }
 
-	public void MoveHouseWife() {
-		_houseWife.Move();
-	}
-
-	public void MoveCat() {
-		_cat.Move();
-	}
-
-	public void MoveMouse() {
-		_mouse.Move();
+	public void Action(String agentName, Structure action) {
+        for(AgentInterface agent : Agents) {
+			agent.Action(agentName, action);
+        }
 	}
 }
