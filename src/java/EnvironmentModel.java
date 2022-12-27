@@ -23,28 +23,18 @@ public class EnvironmentModel extends GridWorldModel {		// Classe de modelo
 
 			Agents.add(new HouseWife(this));
 			Agents.add(new Cat(this, 1));
-
-
-			Random gerador = new Random();
-			setAgPos(Env.IdBuracoUm(), gerador.nextInt(10), gerador.nextInt(10));
-			setAgPos(Env.IdBuracoDois(), gerador.nextInt(10), gerador.nextInt(10));
-			setAgPos(Env.IdBuracoTres(), gerador.nextInt(10), gerador.nextInt(10));
-			setAgPos(Env.IdBuracoQuatro(), gerador.nextInt(10), gerador.nextInt(10));
-
-			buracoUmLoc = getAgPos(Env.IdBuracoUm());
-			buracoDoisLoc = getAgPos(Env.IdBuracoDois());
-			buracoTresLoc = getAgPos(Env.IdBuracoTres());
-			buracoQuatroLoc = getAgPos(Env.IdBuracoQuatro());
+			Agents.add(new Hole(this, 3));
+			Agents.add(new Hole(this, 4));
+			Agents.add(new Hole(this, 5));
+			Agents.add(new Hole(this, 6));
 
 			List<Location> holesLocation = new ArrayList<Location>();
-			holesLocation.add(buracoUmLoc);
-			holesLocation.add(buracoDoisLoc);
-			holesLocation.add(buracoTresLoc);
-			holesLocation.add(buracoQuatroLoc);
+			holesLocation.add(getAgPos(3));
+			holesLocation.add(getAgPos(4));
+			holesLocation.add(getAgPos(5));
+			holesLocation.add(getAgPos(6));
 
 			Agents.add(new Mouse(this, 2, holesLocation));
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }

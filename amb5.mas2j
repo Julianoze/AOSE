@@ -10,8 +10,8 @@ MAS amb5 {
 		cao;
 		porta;
         catGenerator;
+		holeGenerator;
 		geradorDeQueijo;
-		geradorDeBuraco;
 		mouseGenerator;
 	aslSourcePath:
 		"src/asl";

@@ -2,11 +2,6 @@ import jason.asSyntax.*;
 import jason.environment.Environment;
 
 public class Ambiente5 extends Environment {
-
-	public static final Term moveHouseWife = Literal.parseLiteral("moveHouseWife");
-	public static final Term moveCat = Literal.parseLiteral("moveCat");
-	public static final Term moveMouse = Literal.parseLiteral("moveMouse");
-
 	private EnvironmentModel model;
     private VisaoAmbiente  visao;
 
@@ -32,7 +27,7 @@ public class Ambiente5 extends Environment {
         return true;
     }
 
- /* Chamado antes do fim da execu��o do MAS */
+    /* Chamado antes do fim da execu��o do MAS */
     @Override
     public void stop() {
         super.stop();
