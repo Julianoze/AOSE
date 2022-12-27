@@ -7,6 +7,7 @@ public class AgentBase {
 
     protected int AgentId;
     protected String AgentName;
+    protected boolean MoveBack;
 
     public AgentBase(EnvironmentModel model) {
         Model = model;
@@ -46,18 +47,23 @@ public class AgentBase {
     }
 
     protected void MoveLinear() {
-        // TODO handle obstacle
+        int axios = MoveBack ? -1 : 1;
         Location currentLocation = GetCurrentLocation();
-        RemoveMovementPerception(currentLocation);
 
-        currentLocation.x++;
+        currentLocation.x += axios;
 
         if (currentLocation.x == Model.getHeight()) {
         	currentLocation.x = 0;
-        	currentLocation.y++;
+        	currentLocation.y += axios;
         }
-        if (currentLocation.y == Model.getWidth()) {
-            return;
+
+        if (!Model.isFree(currentLocation.x, currentLocation.y))
+        {
+            int currentY = currentLocation.y + axios;
+            if(currentY != Model.getWidth())
+            {
+                currentLocation.y = currentY;
+            }
         }
 
         SetAgentPosition(currentLocation);
