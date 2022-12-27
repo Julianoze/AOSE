@@ -92,7 +92,8 @@ public abstract class AgentBase implements AgentInterface {
                     axiosY = currentLocation.y;
 
             }
-            if(Model.isFree(axiosX, axiosY))
+
+            if(Model.isFree(axiosX, axiosY) || AllowedPositions(axiosX, axiosY))
             {
                 currentLocation.x = axiosX;
                 currentLocation.y = axiosY;
@@ -104,4 +105,9 @@ public abstract class AgentBase implements AgentInterface {
         SetAgentPosition(currentLocation);
        	AddMovementPerception(currentLocation);
     }
+
+    protected boolean AllowedPositions(int x, int y)
+    {
+        return false;
+    };
 }

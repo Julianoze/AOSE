@@ -8,14 +8,18 @@ import java.util.List;
 import java.util.Random;
 
 public class Mouse extends AgentBase {
+    private List<Location> HolesLocation;
+
     public Mouse(EnvironmentModel model, int agentId, List<Location> holesLocation) {
         super(model);
 
         AgentId = agentId;
         AgentName = "mouse_" + agentId;
 
-        int position = Random.nextInt(holesLocation.size());
-        Location holeLocation = holesLocation.get(position);
+        HolesLocation = holesLocation;
+
+        int position = Random.nextInt(HolesLocation.size());
+        Location holeLocation = HolesLocation.get(position);
 
         SetInitialAgentPosition(holeLocation.x, holeLocation.y);
        	AddMovementPerception(GetCurrentLocation());
@@ -31,5 +35,22 @@ public class Mouse extends AgentBase {
 
     public void Move() {
         MoveRandomic();
+    }
+
+    @Override
+    protected boolean AllowedPositions(int x, int y)
+    {
+        boolean isAllowedPosition = false;
+
+        for(Location location : HolesLocation)
+        {
+            if(location.x == x && location.y == y)
+            {
+                isAllowedPosition = true;
+                return true;
+            }
+        }
+
+        return isAllowedPosition;
     }
 }
