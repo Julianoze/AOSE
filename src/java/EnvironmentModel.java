@@ -37,16 +37,16 @@ public class EnvironmentModel extends GridWorldModel {		// Classe de modelo
 			// TODO Add more two instances
 			Agents.add(new Cat(this, 8));
 
-			// TODO Add more nine instaces
-			Agents.add(new Mouse(this, 11, holesLocation));
-
-			// TODO Add twelve cheese instances
 			List<Location> cheeseLocation = new ArrayList<Location>();
 			for(int i = 20; i <= 31; i++)
 			{
 				Agents.add(new Cheese(this, i));
 				cheeseLocation.add(getAgPos(i));
 			}
+
+
+			// TODO Add more nine instaces
+			Agents.add(new Mouse(this, 11, holesLocation, cheeseLocation));
 
         } catch (Exception e) {
             e.printStackTrace();

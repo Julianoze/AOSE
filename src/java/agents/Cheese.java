@@ -14,10 +14,15 @@ public class Cheese extends AgentBase {
     }
 
     public void Action(String agentName, Structure action) {
+        if(!agentName.equals(AgentName))
+            return;
+
         Location currentLocation = GetCurrentLocation();
         if(Model.isFree(currentLocation))
         {
             SetAgentPosition(currentLocation);
         }
+
+        System.out.println(action);
     }
 }
