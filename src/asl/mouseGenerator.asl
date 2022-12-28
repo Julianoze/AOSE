@@ -1,7 +1,7 @@
 !start.
 
-+!start : true <- for ( .range(I, 1, 9) ) {
++!start : true <- for ( .range(I, 11, 19) ) {
 					.concat("mouse_", I, X);
-					.create_agent(mouse, "mouse.asl");
+					.create_agent(X, "mouse.asl");
 				}.
 

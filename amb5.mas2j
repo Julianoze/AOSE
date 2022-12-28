@@ -11,7 +11,7 @@ MAS amb5 {
 		porta;
         catGenerator;
 		holeGenerator;
-		geradorDeQueijo;
+		cheeseGenerator;
 		mouseGenerator;
 	aslSourcePath:
 		"src/asl";
