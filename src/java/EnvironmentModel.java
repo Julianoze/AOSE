@@ -22,27 +22,32 @@ public class EnvironmentModel extends GridWorldModel {		// Classe de modelo
 			Agents = new ArrayList<AgentInterface>();
 
 			Agents.add(new HouseWife(this));
-			Agents.add(new Hole(this, 2));
-			Agents.add(new Hole(this, 3));
-			Agents.add(new Hole(this, 4));
-			Agents.add(new Hole(this, 5));
+
+			// TODO Add one dog instance (1)
+			// TODO Add one deliveryMan instance (2)
+			// TODO Add door instace (3)
 
 			List<Location> holesLocation = new ArrayList<Location>();
-			holesLocation.add(getAgPos(2));
-			holesLocation.add(getAgPos(3));
-			holesLocation.add(getAgPos(4));
-			holesLocation.add(getAgPos(5));
+			for(int i = 4; i <= 7; i++)
+			{
+				Agents.add(new Hole(this, i));
+				holesLocation.add(getAgPos(i));
+			}
 
 			// TODO Add more two instances
-			Agents.add(new Cat(this, 6));
+			Agents.add(new Cat(this, 8));
 
 			// TODO Add more nine instaces
-			Agents.add(new Mouse(this, 10, holesLocation));
+			Agents.add(new Mouse(this, 11, holesLocation));
 
-			// TODO Add one dog instance
-			// TODO Add one deliveryMan instance
 			// TODO Add twelve cheese instances
-			// TODO Add door instace
+			List<Location> cheeseLocation = new ArrayList<Location>();
+			for(int i = 20; i <= 31; i++)
+			{
+				Agents.add(new Cheese(this, i));
+				cheeseLocation.add(getAgPos(i));
+			}
+
         } catch (Exception e) {
             e.printStackTrace();
         }

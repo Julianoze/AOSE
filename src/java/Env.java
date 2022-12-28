@@ -1,7 +1,7 @@
 
 class Env {
-	public static int TotalAgentes()
+	public static int CountAgents()
 	{
-		return 7;
+		return 32;
 	}
 }

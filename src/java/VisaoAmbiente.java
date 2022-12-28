@@ -23,26 +23,32 @@ public class VisaoAmbiente extends GridWorldView {
 		switch (id) {
 			case 0: {
 				c = Color.green;
-				rotulo = new String ("DonaCasa");
+				rotulo = new String ("HouseWife");
 				break;
 			}
-			case 1: {
+			case 8: {
 				c = Color.yellow;
-				rotulo = new String ("Gato");
+				rotulo = new String ("Cat");
 				break;
 			}
-			case 2: {
+			case 11: {
 				c = Color.gray;
-				rotulo = new String ("Rato");
+				rotulo = new String ("Mouse");
 				break;
 			}
-			case 3, 4, 5, 6: {
+			case 4, 5, 6, 7: {
 				c = Color.black;
+				break;
+			}
+
+			case 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31: {
+				c = Color.orange;
+				rotulo = new String ("Cheese");
 				break;
 			}
 		}
 
-		if (id >= 0 && id < Env.TotalAgentes()) {
+		if (id >= 0 && id < Env.CountAgents()) {
 			super.drawAgent(g, x, y, c, -1);
 
 			g.setColor(Color.black);

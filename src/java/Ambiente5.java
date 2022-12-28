@@ -10,7 +10,7 @@ public class Ambiente5 extends Environment {
     public void init(String[] args) {
         super.init(args);
 
-        model = new EnvironmentModel(10, 10, Env.TotalAgentes(), this);
+        model = new EnvironmentModel(10, 10, Env.CountAgents(), this);
 
         visao  = new VisaoAmbiente(model);
 
