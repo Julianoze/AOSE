@@ -10,15 +10,19 @@ import java.util.Random;
 public class Mouse extends AgentBase {
     private List<Location> HolesLocation;
     private List<Location> CheeseLocation;
+    private List<Integer> CatsId;
 
     private int _cheeseAgentId;
+    private Location _nearestHole;
     private boolean _foundCheese;
     private Literal CheesePerception;
+    private Literal RunawayPerception;
 
     public Mouse(EnvironmentModel model,
                  int agentId,
                  List<Location> holesLocation,
-                 List<Location> cheeseLocation)
+                 List<Location> cheeseLocation,
+                 List<Integer> catsId)
     {
         super(model);
 
@@ -27,6 +31,8 @@ public class Mouse extends AgentBase {
 
         HolesLocation = holesLocation;
         CheeseLocation = cheeseLocation;
+        CatsId = catsId;
+
         RespawnFromHole();
        	AddMovementPerception(GetCurrentLocation());
     }
@@ -35,6 +41,12 @@ public class Mouse extends AgentBase {
 
         if(!agentName.equals(AgentName))
             return;
+
+        if(action.equals(Literal.parseLiteral("runaway")))
+        {
+            Runaway();
+            return;
+        }
 
         if(action.equals(Literal.parseLiteral("respawn")))
         {
@@ -56,8 +68,40 @@ public class Mouse extends AgentBase {
 
         Location currentLocation = GetCurrentLocation();
 
+        if(SearchCat(currentLocation))
+            return;
+
         EnterInHole(currentLocation);
         EatCheese(currentLocation);
+    }
+
+    private void Runaway()
+    {
+        Location currentLocation = GetCurrentLocation();
+        RemovePerception("run("+  AgentName + ","+ currentLocation.x + "," + currentLocation.y + ")");
+
+        if(currentLocation.x == _nearestHole.x && currentLocation.y == _nearestHole.y)
+        {
+            EnterInHole(currentLocation);
+            return;
+        }
+
+        if(currentLocation.x > _nearestHole.x)
+        {
+            currentLocation.x--;
+        } else if (currentLocation.x < _nearestHole.x) {
+            currentLocation.x++;
+        }
+
+        if(currentLocation.y > _nearestHole.y)
+        {
+            currentLocation.y--;
+        } else if (currentLocation.y < _nearestHole.y) {
+            currentLocation.y++;
+        }
+
+        AddAgentPerception("run("+  AgentName + ","+ currentLocation.x + "," + currentLocation.y + ")");
+        SetAgentPosition(currentLocation);
     }
 
     private void RespawnFromHole() {
@@ -85,6 +129,44 @@ public class Mouse extends AgentBase {
         RemoveMovementPerception(currentLocation);
         CheesePerception = Literal.parseLiteral("eat("+ AgentName + "," + _cheeseAgentId + ")");
         Model.Environment.addPercept(AgentName, CheesePerception);
+    }
+
+    private boolean SearchCat(Location currentLocation) {
+        boolean foundCat = false;
+
+        for(int catId : CatsId)
+        {
+            Location location = Model.getAgPos(catId);
+            int x = location.x - currentLocation.x;
+            int y = location.y - currentLocation.y;
+
+
+            if((x >= -2 && x <= 2) && (y >= -2 && y <= 2))
+            {
+                foundCat = true;
+            }
+        }
+
+        if(!foundCat)
+            return foundCat;
+
+        int nearestDistance = -1;
+        _nearestHole = currentLocation;
+
+        for(Location location : HolesLocation)
+        {
+            int distance = currentLocation.distanceManhattan(location);
+            if(nearestDistance == -1 || distance < nearestDistance)
+            {
+                nearestDistance = distance;
+                _nearestHole = location;
+            }
+        }
+
+        RemoveMovementPerception(currentLocation);
+        AddAgentPerception("run("+  AgentName + ","+ currentLocation.x + "," + currentLocation.y + ")");
+
+        return foundCat;
     }
 
     @Override

@@ -2,6 +2,13 @@
 +position(L, X, Y) : true
 	<- 	!move (X, Y).
 
++run(L, X, Y) : true
+	<-	.wait(1000);
+		!stillRunning(X, Y).
+
++!stillRunning(X, Y) : true
+	<-	runaway.
+
 +hide(L) : true
 	<- 	.wait(1000);
 		respawn.
