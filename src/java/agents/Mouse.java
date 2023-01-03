@@ -126,6 +126,9 @@ public class Mouse extends AgentBase {
         if(!_foundCheese)
             return;
 
+        if(_cheeseAgentId >= 11 && _cheeseAgentId <= 19)
+            return;
+
         RemoveMovementPerception(currentLocation);
         CheesePerception = Literal.parseLiteral("eat("+ AgentName + "," + _cheeseAgentId + ")");
         Model.Environment.addPercept(AgentName, CheesePerception);

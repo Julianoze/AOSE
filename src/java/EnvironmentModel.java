@@ -50,9 +50,8 @@ public class EnvironmentModel extends GridWorldModel {		// Classe de modelo
 				cheeseLocation.add(getAgPos(i));
 			}
 
-
-			// TODO Add more nine instaces
-			Agents.add(new Mouse(this, 11, holesLocation, cheeseLocation, catsId));
+			for(int i = 11; i <= 19; i++)
+				Agents.add(new Mouse(this, i, holesLocation, cheeseLocation, catsId));
 
         } catch (Exception e) {
             e.printStackTrace();
