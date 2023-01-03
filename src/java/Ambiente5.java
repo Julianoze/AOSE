@@ -22,7 +22,8 @@ public class Ambiente5 extends Environment {
     public boolean executeAction(String agName, Structure action) {
         informAgsEnvironmentChanged();
 
-        model.Action(agName, action);
+        if(!model.Action(agName, action))
+            stop();
 
         return true;
     }

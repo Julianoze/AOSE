@@ -17,6 +17,7 @@
 	<- 	.wait(1000);
 		.concat("cheese_", X, I);
 		.kill_agent(I);
+		decreaseCheese;
 		restart.
 
 +!move (X, Y) : X >= 0 & Y < 10

@@ -14,6 +14,8 @@ public class EnvironmentModel extends GridWorldModel {		// Classe de modelo
 
 	private ArrayList<AgentInterface> Agents;
 
+	private int CheeseCount = 0;
+
     public EnvironmentModel (int arg0, int arg1, int arg2, Environment environment) {	// Recebe a coluna, linha e agente
 	    super(arg0, arg1, arg2);
 
@@ -48,6 +50,7 @@ public class EnvironmentModel extends GridWorldModel {		// Classe de modelo
 			{
 				Agents.add(new Cheese(this, i));
 				cheeseLocation.add(getAgPos(i));
+				CheeseCount++;
 			}
 
 			for(int i = 11; i <= 19; i++)
@@ -58,9 +61,18 @@ public class EnvironmentModel extends GridWorldModel {		// Classe de modelo
         }
     }
 
-	public void Action(String agentName, Structure action) {
-        for(AgentInterface agent : Agents) {
+	public boolean Action(String agentName, Structure action) {
+        if(action.equals(Literal.parseLiteral("decreaseCheese")))
+		{
+			CheeseCount--;
+			if(CheeseCount == 0)
+				return false;
+		}
+
+		for(AgentInterface agent : Agents) {
 			agent.Action(agentName, action);
         }
+
+		return true;
 	}
 }
