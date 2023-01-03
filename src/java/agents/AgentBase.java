@@ -90,13 +90,13 @@ public abstract class AgentBase implements AgentInterface {
             int axiosX = currentLocation.x + (Random.nextBoolean() ? 1 : -1);
             int axiosY = currentLocation.y;
 
-            if(axiosX == Model.getHeight())
+            if(axiosX < 0 || axiosX == Model.getHeight())
                 axiosX = currentLocation.x;
 
             if(Random.nextBoolean())
             {
                 axiosY += (Random.nextBoolean() ? 1 : -1);
-                if(axiosY == Model.getWidth())
+                if(axiosY < 0 || axiosY == Model.getWidth())
                     axiosY = currentLocation.y;
 
             }
