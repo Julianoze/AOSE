@@ -27,7 +27,6 @@ public class Cat extends AgentBase {
         if(!agentName.equals(AgentName))
             return;
 
-        // TODO if mouse enter in a hole add movement perception
         if(action.equals(Literal.parseLiteral("hunting")))
         {
             Location currentLocation = GetCurrentLocation();
