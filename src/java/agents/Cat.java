@@ -29,46 +29,50 @@ public class Cat extends AgentBase {
 
         if(action.equals(Literal.parseLiteral("hunting")))
         {
-            Location currentLocation = GetCurrentLocation();
-            RemovePerception("huntingMouse(" + currentLocation.x + "," + currentLocation.y + ")");
-
-            Location mouseLocation = Model.getAgPos(_mouseId);
-
-            if(isMouseHoverHole(mouseLocation))
-            {
-                Model.Environment.clearPercepts(agentName);
-                AddMovementPerception(currentLocation);
-                return;
-            }
-
-            if(currentLocation.x == mouseLocation.x && currentLocation.y == mouseLocation.y)
-            {
-                Model.Environment.clearPercepts(agentName);
-                AddAgentPerception("catchedMouse(" + _mouseId + ")");
-                return;
-            }
-
-            if(currentLocation.x > mouseLocation.x)
-            {
-                currentLocation.x--;
-            } else if (currentLocation.x < mouseLocation.x) {
-                currentLocation.x++;
-            }
-
-            if(currentLocation.y > mouseLocation.y)
-            {
-                currentLocation.y--;
-            } else if (currentLocation.y < mouseLocation.y) {
-                currentLocation.y++;
-            }
-
-            AddAgentPerception("huntingMouse(" + currentLocation.x + "," + currentLocation.y + ")");
-            SetAgentPosition(currentLocation);
+            HuntMouse();
             return;
         }
 
-
         Move();
+    }
+
+    private void HuntMouse()
+    {
+        Location currentLocation = GetCurrentLocation();
+        RemovePerception("huntingMouse(" + currentLocation.x + "," + currentLocation.y + ")");
+
+        Location mouseLocation = Model.getAgPos(_mouseId);
+
+        if(isMouseHoverHole(mouseLocation))
+        {
+            Model.Environment.clearPercepts(AgentName);
+            AddMovementPerception(currentLocation);
+            return;
+        }
+
+        if(currentLocation.x == mouseLocation.x && currentLocation.y == mouseLocation.y)
+        {
+            Model.Environment.clearPercepts(AgentName);
+            AddAgentPerception("catchedMouse(" + _mouseId + ")");
+            return;
+        }
+
+        if(currentLocation.x > mouseLocation.x)
+        {
+            currentLocation.x--;
+        } else if (currentLocation.x < mouseLocation.x) {
+            currentLocation.x++;
+        }
+
+        if(currentLocation.y > mouseLocation.y)
+        {
+            currentLocation.y--;
+        } else if (currentLocation.y < mouseLocation.y) {
+            currentLocation.y++;
+        }
+
+        AddAgentPerception("huntingMouse(" + currentLocation.x + "," + currentLocation.y + ")");
+        SetAgentPosition(currentLocation);
     }
 
     public void Move() {
