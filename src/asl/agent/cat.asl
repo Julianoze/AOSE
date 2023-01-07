@@ -19,7 +19,13 @@
 				   .print ("Ca�ando o rato");
 				    proximaCasaGato.
 
-+!pegaRato [source (self)] : true
-				<- .wait(100);
-				   .print ("Ca�ando o rato");
-				    proximaCasaGato.
++huntingMouse(X, L) : true
+				<- .wait(1000);
+				    hunting.
+
++catchedMouse(X) : true
+				<-  .concat("mouse_", X, I);
+				    .print ("Nham! Nham! Nham!");
+					.kill_agent(I);
+					decreaseMouse;
+					moveCat.

@@ -3,12 +3,21 @@ import jason.asSyntax.*;
 import jason.environment.Environment;
 import jason.environment.grid.Location;
 
+import java.util.List;
+
 public class Cat extends AgentBase {
-    public Cat(EnvironmentModel model, int agentId) {
+    private List<Location> HolesLocation;
+    private int _mouseId;
+
+    public Cat(EnvironmentModel model,
+               int agentId,
+               List<Location> holesLocation) {
         super(model);
 
         AgentId = agentId;
         AgentName = "cat_" + agentId;
+
+        HolesLocation = holesLocation;
 
         SetRandomInitialAgentPosition();
        	AddMovementPerception(GetCurrentLocation());
@@ -18,42 +27,101 @@ public class Cat extends AgentBase {
         if(!agentName.equals(AgentName))
             return;
 
+        // TODO if mouse enter in a hole add movement perception
+        if(action.equals(Literal.parseLiteral("hunting")))
+        {
+            Location currentLocation = GetCurrentLocation();
+            RemovePerception("huntingMouse(" + currentLocation.x + "," + currentLocation.y + ")");
+
+            Location mouseLocation = Model.getAgPos(_mouseId);
+
+            if(isMouseHoverHole(mouseLocation))
+            {
+                Model.Environment.clearPercepts(agentName);
+                AddMovementPerception(currentLocation);
+                return;
+            }
+
+            if(currentLocation.x == mouseLocation.x && currentLocation.y == mouseLocation.y)
+            {
+                Model.Environment.clearPercepts(agentName);
+                AddAgentPerception("catchedMouse(" + _mouseId + ")");
+                return;
+            }
+
+            if(currentLocation.x > mouseLocation.x)
+            {
+                currentLocation.x--;
+            } else if (currentLocation.x < mouseLocation.x) {
+                currentLocation.x++;
+            }
+
+            if(currentLocation.y > mouseLocation.y)
+            {
+                currentLocation.y--;
+            } else if (currentLocation.y < mouseLocation.y) {
+                currentLocation.y++;
+            }
+
+            AddAgentPerception("huntingMouse(" + currentLocation.x + "," + currentLocation.y + ")");
+            SetAgentPosition(currentLocation);
+            return;
+        }
+
+
         Move();
     }
 
     public void Move() {
-        // gatoLoc = getAgPos(1);
-        // ratoLoc = getAgPos(2);
+        Location currentLocation = GetCurrentLocation();
+        if(SearchMouse(currentLocation))
+            return;
 
-        // if ((gatoLoc.x == ratoLoc.x) && (gatoLoc.y == ratoLoc.y)) {
-        //     Literal ratoApanhado = Literal.parseLiteral("ratoApanhado");
-        //     Environment.addPercept(ratoApanhado);
-        // }
-        // else {
-
-        // 	if (ratoLoc.x > gatoLoc.x) {
-        //    		gatoLoc.x++;
-        // 	}
-
-        // 	if (ratoLoc.x < gatoLoc.x) {
-        //    		gatoLoc.x--;
-        // 	}
-
-        // 	if (ratoLoc.x == gatoLoc.x) {
-        // 	   if (ratoLoc.y > gatoLoc.y) {
-        // 		   gatoLoc.y++;
-        // 	   }
-
-        // 	   if (ratoLoc.y < gatoLoc.y) {
-        // 		   gatoLoc.y--;
-        // 	   }
-
-        // 	}
-        // }
-
-        // setAgPos(1, gatoLoc);
-        // Literal perseguicao = Literal.parseLiteral("aindaNaoPegou (" + gatoLoc.x + ", " + gatoLoc.y + ")");
-       	// Environment.addPercept(perseguicao);
         MoveRandomic();
+    }
+
+    private boolean SearchMouse(Location currentLocation) {
+        boolean foundMouse = false;
+        Location mouseLocation = currentLocation;
+
+		for(int i = 11; i <= 19; i++)
+        {
+            Location location = Model.getAgPos(i);
+            int x = location.x - currentLocation.x;
+            int y = location.y - currentLocation.y;
+
+
+            if((x >= -3 && x <= 3) && (y >= -3 && y <= 3))
+            {
+                _mouseId = i;
+                mouseLocation = location;
+                foundMouse = true;
+            }
+        }
+
+        if(!foundMouse)
+            return foundMouse;
+
+        boolean mouseOverHole = isMouseHoverHole(mouseLocation);
+        if(!mouseOverHole)
+        {
+            RemoveMovementPerception(currentLocation);
+            AddAgentPerception("huntingMouse(" + currentLocation.x + "," + currentLocation.y + ")");
+        }
+
+        return !mouseOverHole;
+    }
+
+    private boolean isMouseHoverHole(Location mouseLocation)
+    {
+        boolean mouseOverHole = false;
+
+        for(Location location : HolesLocation)
+        {
+            if(location.x == mouseLocation.x && location.y == mouseLocation.y)
+                mouseOverHole = true;
+        }
+
+        return mouseOverHole;
     }
 }

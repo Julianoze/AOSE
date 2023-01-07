@@ -26,7 +26,7 @@ public class VisaoAmbiente extends GridWorldView {
 				rotulo = new String ("HouseWife");
 				break;
 			}
-			case 8: {
+			case 8, 9, 10: {
 				c = Color.yellow;
 				rotulo = new String ("Cat");
 				break;

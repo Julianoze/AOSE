@@ -15,6 +15,7 @@ public class EnvironmentModel extends GridWorldModel {		// Classe de modelo
 	private ArrayList<AgentInterface> Agents;
 
 	private int CheeseCount = 0;
+	private int MouseCount = 0;
 
     public EnvironmentModel (int arg0, int arg1, int arg2, Environment environment) {	// Recebe a coluna, linha e agente
 	    super(arg0, arg1, arg2);
@@ -38,10 +39,9 @@ public class EnvironmentModel extends GridWorldModel {		// Classe de modelo
 
 			List<Integer> catsId = new ArrayList<Integer>();
 
-			// TODO Add more two instances
-			for(int i = 8; i <= 8; i++)
+			for(int i = 8; i <= 10; i++)
 			{
-				Agents.add(new Cat(this, i));
+				Agents.add(new Cat(this, i, holesLocation));
 				catsId.add(i);
 			}
 
@@ -54,7 +54,10 @@ public class EnvironmentModel extends GridWorldModel {		// Classe de modelo
 			}
 
 			for(int i = 11; i <= 19; i++)
+			{
 				Agents.add(new Mouse(this, i, holesLocation, cheeseLocation, catsId));
+				MouseCount++;
+			}
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -66,6 +69,13 @@ public class EnvironmentModel extends GridWorldModel {		// Classe de modelo
 		{
 			CheeseCount--;
 			if(CheeseCount == 0)
+				return false;
+		}
+
+        if(action.equals(Literal.parseLiteral("decreaseCheese")))
+		{
+			MouseCount--;
+			if(MouseCount == 0)
 				return false;
 		}
 

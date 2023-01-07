@@ -21,5 +21,5 @@
 		restart.
 
 +!move (X, Y) : X >= 0 & Y < 10
-	<- 	.wait (900);
+	<- 	.wait (1000);
 		moveMouse.
