@@ -20,6 +20,6 @@
 		decreaseCheese;
 		restart.
 
-+!move (X, Y) : X >= 0 & Y < 10
++!move (X, Y) : X >= 0 & Y < 24
 	<- 	.wait (1000);
 		moveMouse.

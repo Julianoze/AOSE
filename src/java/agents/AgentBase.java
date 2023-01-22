@@ -20,8 +20,8 @@ public abstract class AgentBase implements AgentInterface {
         int x, y;
 
         do {
-            x = Random.nextInt(10);
-            y = Random.nextInt(10);
+            x = Random.nextInt(Model.getWidth());
+            y = Random.nextInt(Model.getWidth());
         }
         while(!Model.isFree(x, y));
 

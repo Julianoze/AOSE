@@ -23,17 +23,17 @@ public class VisaoAmbiente extends GridWorldView {
 		switch (id) {
 			case 0: {
 				c = Color.green;
-				rotulo = new String ("HouseWife");
+				rotulo = new String ("H");
 				break;
 			}
 			case 8, 9, 10: {
 				c = Color.yellow;
-				rotulo = new String ("Cat");
+				rotulo = new String ("C");
 				break;
 			}
 			case 11, 12, 13, 14, 15, 16, 17, 18, 19: {
 				c = Color.gray;
-				rotulo = new String ("Mouse");
+				rotulo = new String ("M");
 				break;
 			}
 			case 4, 5, 6, 7: {
@@ -43,7 +43,7 @@ public class VisaoAmbiente extends GridWorldView {
 
 			case 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31: {
 				c = Color.orange;
-				rotulo = new String ("Cheese");
+				rotulo = new String ("X");
 				break;
 			}
 		}

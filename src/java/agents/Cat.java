@@ -30,13 +30,13 @@ public class Cat extends AgentBase {
 
         if(action.toString().contains("huntMouse"))
         {
+            String perception = action.toString();
             _mouseId = Integer.parseInt(perception.substring(perception.indexOf("(") + 1, perception.indexOf(")")));
             Model.Environment.removePercept(AgentName, Literal.parseLiteral("huntMouse(" + _mouseId + ")"));
 
             if(_isHunting)
                 return;
 
-            String perception = action.toString();
             HuntMouse();
             return;
         }
