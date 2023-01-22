@@ -60,6 +60,7 @@ public class Cat extends AgentBase {
 
         if(isMouseHoverHole(mouseLocation))
         {
+            _isHunting = false;
             Model.Environment.clearPercepts(AgentName);
             AddMovementPerception(currentLocation);
             return;
