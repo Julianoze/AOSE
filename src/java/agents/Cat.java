@@ -8,6 +8,7 @@ import java.util.List;
 public class Cat extends AgentBase {
     private List<Location> HolesLocation;
     private int _mouseId;
+    private boolean _isHunting;
 
     public Cat(EnvironmentModel model,
                int agentId,
@@ -27,8 +28,22 @@ public class Cat extends AgentBase {
         if(!agentName.equals(AgentName))
             return;
 
+        if(action.toString().contains("huntMouse"))
+        {
+            _mouseId = Integer.parseInt(perception.substring(perception.indexOf("(") + 1, perception.indexOf(")")));
+            Model.Environment.removePercept(AgentName, Literal.parseLiteral("huntMouse(" + _mouseId + ")"));
+
+            if(_isHunting)
+                return;
+
+            String perception = action.toString();
+            HuntMouse();
+            return;
+        }
+
         if(action.equals(Literal.parseLiteral("hunting")))
         {
+            _isHunting = true;
             HuntMouse();
             return;
         }
@@ -76,6 +91,7 @@ public class Cat extends AgentBase {
     }
 
     public void Move() {
+        _isHunting = false;
         Location currentLocation = GetCurrentLocation();
         if(SearchMouse(currentLocation))
             return;

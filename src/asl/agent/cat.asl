@@ -5,19 +5,10 @@
 	<- 	.wait (700);
 		moveCat.
 
++foundMouse(X): true
+	<- huntMouse(X).
+
 +!move (X, Y) : true.
-
-+aindaNaoPegou (X,Y) : true
-				<- !pegaRato.
-
-+ratoApanhado : true
-				<- .print ("Nham! Nham! Nham!");
-				   .kill_agent (rato1).
-
-+!pegaRato [source (donaCasa)] : true
-				<- .wait(100);
-				   .print ("Ca�ando o rato");
-				    proximaCasaGato.
 
 +huntingMouse(X, L) : true
 				<- .wait(1000);

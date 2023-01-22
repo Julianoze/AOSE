@@ -27,21 +27,31 @@ public class HouseWife extends AgentBase {
         Location currentLocation = GetCurrentLocation();
 
         SearchMouse(currentLocation);
-
-        if(foundMouse)
-            return;
-
         MoveLinear();
     }
 
-    public void SearchMouse(Location currentLocation) {
-        int agentColumn = currentLocation.x;
-    	for (int column = agentColumn; column <= (agentColumn + 3); column++) {
-        	// if ((column == ratoLoc.x) && (currentLocation.y == ratoLoc.y)) {
-        	// 	    ratoAchado = 1;
-        	//     Literal ratoPercebido = Literal.parseLiteral("ratoPercebido(" + ratoLoc.x +"," + ratoLoc.y + ")");
-        	//     Environment.addPercept(ratoPercebido);
-        	// }
-       	}
+    private void SearchMouse(Location currentLocation) {
+        boolean foundMouse = false;
+        int mouseId = 0;
+
+		for(int i = 11; i <= 19; i++)
+        {
+            Location location = Model.getAgPos(i);
+            int x = location.x - currentLocation.x;
+            int y = location.y - currentLocation.y;
+
+
+            if((x >= -3 && x <= 3) && (y >= -3 && y <= 3))
+            {
+                mouseId = i;
+                foundMouse = true;
+            }
+        }
+
+        if(foundMouse)
+        {
+            Model.Environment.addPercept(Literal.parseLiteral("foundMouse(" + mouseId + ")"));
+        }
+
     }
 }
