@@ -16,6 +16,7 @@ public class EnvironmentModel extends GridWorldModel {		// Classe de modelo
 
 	private int CheeseCount = 0;
 	private int MouseCount = 0;
+	private int CatCount = 0;
 
     public EnvironmentModel (int arg0, int arg1, int arg2, Environment environment) {	// Recebe a coluna, linha e agente
 	    super(arg0, arg1, arg2);
@@ -26,7 +27,6 @@ public class EnvironmentModel extends GridWorldModel {		// Classe de modelo
 
 			Agents.add(new HouseWife(this));
 
-			// TODO Add one dog instance (1)
 			// TODO Add one deliveryMan instance (2)
 			// TODO Add door instace (3)
 
@@ -43,6 +43,7 @@ public class EnvironmentModel extends GridWorldModel {		// Classe de modelo
 			{
 				Agents.add(new Cat(this, i, holesLocation));
 				catsId.add(i);
+				CatCount++;
 			}
 
 			List<Location> cheeseLocation = new ArrayList<Location>();
@@ -58,6 +59,8 @@ public class EnvironmentModel extends GridWorldModel {		// Classe de modelo
 				Agents.add(new Mouse(this, i, holesLocation, cheeseLocation, catsId));
 				MouseCount++;
 			}
+
+			Agents.add(new Dog(this, catsId));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -78,6 +81,14 @@ public class EnvironmentModel extends GridWorldModel {		// Classe de modelo
 			if(MouseCount == 0)
 				return false;
 		}
+
+		if(action.equals(Literal.parseLiteral("decreaseCat")))
+		{
+			CatCount--;
+			if(CatCount == 0)
+				return false;
+		}
+
 
 		for(AgentInterface agent : Agents) {
 			agent.Action(agentName, action);
