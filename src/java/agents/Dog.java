@@ -19,8 +19,8 @@ public class Dog extends AgentBase {
 
         CatsId = catsId;
 
+        AddAgentPerception("sleep");
         SetRandomInitialAgentPosition();
-       	AddMovementPerception(GetCurrentLocation());
     }
 
     public void Action(String agentName, Structure action) {
@@ -40,21 +40,29 @@ public class Dog extends AgentBase {
     private void HuntCat()
     {
         Location currentLocation = GetCurrentLocation();
+        if(_catId == 0)
+        {
+            AddMovementPerception(GetCurrentLocation());
+            return;
+        }
+
         RemovePerception("huntingCat(" + currentLocation.x + "," + currentLocation.y + ")");
 
         Location catLocation = Model.getAgPos(_catId);
 
-        // if(isNearHousewife(catLocation))
-        // {
-        //     Model.Environment.clearPercepts(AgentName);
-        //     AddMovementPerception(currentLocation);
-        //     return;
-        // }
+        if(isNearHousewife(catLocation))
+        {
+            Model.Environment.clearPercepts(AgentName);
+            AddMovementPerception(currentLocation);
+            return;
+        }
 
         if(currentLocation.x == catLocation.x && currentLocation.y == catLocation.y)
         {
             Model.Environment.clearPercepts(AgentName);
             AddAgentPerception("catchedCat(" + _catId + ")");
+            _isHunting = false;
+            _catId = 0;
             return;
         }
 
@@ -107,15 +115,29 @@ public class Dog extends AgentBase {
         if(!foundCat)
             return foundCat;
 
-        // boolean nearHousewife = isNearHousewife(catLocation);
-        // if(!nearHousewife)
-        // {
+        boolean nearHousewife = isNearHousewife(catLocation);
+        if(!nearHousewife)
+        {
             RemoveMovementPerception(currentLocation);
             AddAgentPerception("huntingCat(" + currentLocation.x + "," + currentLocation.y + ")");
-        // }
+        }
 
-        // return !nearHousewife;
+        return !nearHousewife;
+    }
 
-        return false;
+    private boolean isNearHousewife(Location catLocation)
+    {
+        Location houseWifeLocation = Model.getAgPos(0);
+
+        int xAxis = catLocation.x - houseWifeLocation.x;
+        int yAxis = catLocation.y - houseWifeLocation.y;
+
+        if(xAxis < 0)
+            xAxis =* -1;
+
+        if(yAxis < 0)
+            yAxis =* -1;
+
+        return xAxis <= 1 || yAxis <= 1;
     }
 }
