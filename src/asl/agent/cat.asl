@@ -1,6 +1,13 @@
 +position(L, X, Y) : true
 	<- 	!move (X, Y).
 
++run(L, X, Y) : true
+	<-	.wait(1000);
+		!stillRunning(X, Y).
+
++!stillRunning(X, Y) : true
+	<-	runaway.
+
 +!move (X, Y) : X >= 0 & Y < 24
 	<- 	.wait (700);
 		moveCat.

@@ -28,8 +28,17 @@ public class Cat extends AgentBase {
         if(!agentName.equals(AgentName))
             return;
 
+        if(action.toString().contains("runaway"))
+        {
+            Runaway();
+        }
+
         if(action.toString().contains("huntMouse"))
         {
+            // TODO check is awake
+            if(LookForDog(GetCurrentLocation()))
+                return;
+
             String perception = action.toString();
             _mouseId = Integer.parseInt(perception.substring(perception.indexOf("(") + 1, perception.indexOf(")")));
             Model.Environment.removePercept(AgentName, Literal.parseLiteral("huntMouse(" + _mouseId + ")"));
@@ -49,6 +58,40 @@ public class Cat extends AgentBase {
         }
 
         Move();
+    }
+
+    private void Runaway()
+    {
+        Location currentLocation = GetCurrentLocation();
+        RemovePerception("run("+  AgentName + ","+ currentLocation.x + "," + currentLocation.y + ")");
+
+        Location housewifeLocation = Model.getAgPos(0);
+
+        int x = housewifeLocation.x - currentLocation.x;
+        int y = housewifeLocation.y - currentLocation.y;
+
+         if((x >= -1 && x <= 1) && (y >= -1 && y <= 1))
+        {
+            AddMovementPerception(currentLocation);
+            return;
+        }
+
+        if(currentLocation.x > housewifeLocation.x)
+        {
+            currentLocation.x--;
+        } else if (currentLocation.x < housewifeLocation.x) {
+            currentLocation.x++;
+        }
+
+        if(currentLocation.y > housewifeLocation.y)
+        {
+            currentLocation.y--;
+        } else if (currentLocation.y < housewifeLocation.y) {
+            currentLocation.y++;
+        }
+
+        AddAgentPerception("run("+  AgentName + ","+ currentLocation.x + "," + currentLocation.y + ")");
+        SetAgentPosition(currentLocation);
     }
 
     private void HuntMouse()
@@ -94,10 +137,37 @@ public class Cat extends AgentBase {
     public void Move() {
         _isHunting = false;
         Location currentLocation = GetCurrentLocation();
+
+        if(LookForDog(currentLocation))
+            return;
+
         if(SearchMouse(currentLocation))
             return;
 
         MoveRandomic();
+    }
+
+    private boolean LookForDog(Location currentLocation) {
+        Location dog = currentLocation;
+        boolean foundDog = false;
+
+        Location location = Model.getAgPos(1);
+        int x = location.x - currentLocation.x;
+        int y = location.y - currentLocation.y;
+
+        if((x >= -3 && x <= 3) && (y >= -3 && y <= 3))
+        {
+            dog = location;
+            foundDog = true;
+        }
+
+        if(!foundDog)
+            return foundDog;
+
+        Model.Environment.clearPercepts(AgentName);
+        AddAgentPerception("run("+  AgentName + ","+ currentLocation.x + "," + currentLocation.y + ")");
+
+        return foundDog;
     }
 
     private boolean SearchMouse(Location currentLocation) {

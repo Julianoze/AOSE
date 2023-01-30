@@ -133,10 +133,10 @@ public class Dog extends AgentBase {
         int yAxis = catLocation.y - houseWifeLocation.y;
 
         if(xAxis < 0)
-            xAxis =* -1;
+            xAxis *= -1;
 
         if(yAxis < 0)
-            yAxis =* -1;
+            yAxis *= -1;
 
         return xAxis <= 1 || yAxis <= 1;
     }
