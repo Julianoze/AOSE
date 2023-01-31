@@ -2,6 +2,9 @@
 	<- 	.wait(5000);
 		moveDog.
 
++stop : true
+	<- stopHunting.
+
 +position(L, X, Y) : true
 	<- 	!move (X, Y).
 

@@ -26,6 +26,14 @@ public class Dog extends AgentBase {
     public void Action(String agentName, Structure action) {
         if(!agentName.equals(AgentName))
             return;
+        if(action.equals(Literal.parseLiteral("stopHunting")))
+        {
+            Model.Environment.clearPercepts(AgentName);
+            Location currentLocation = GetCurrentLocation();
+            AddMovementPerception(GetCurrentLocation());
+
+            return;
+        }
 
         if(action.equals(Literal.parseLiteral("hunting")))
         {
